@@ -58,7 +58,7 @@
     };
 
     socket.onmessage = function(event) {
-        console.log(event.data)
+        document.getElementById('message').append(event.data)
     };
 
     socket.onerror = function(error) {
