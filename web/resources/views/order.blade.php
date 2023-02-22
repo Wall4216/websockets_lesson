@@ -36,7 +36,10 @@
     @endif
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-            <p id="message"></p>
+            @csrf
+            <input type="text" name="product" class="form-control" value="Шарики">
+            <input type="text" name="name" class="form-control" value="Ильназ">
+            <button type="submit" class="form-control primary">Отправить</button>
         </div>
     </div>
 </div>

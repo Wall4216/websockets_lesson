@@ -19,3 +19,12 @@ Route::get('/', function () {
 Route::get('/test', function () {
     return view('test');
 });
+Route::get('/order', function () {
+    return view('order');
+});
+Route::get('/orders', function () {
+    return view('orders');
+});
+Route::post('/order', function (\Illuminate\Http\Request $request){
+   return response()->redirectTo('/order');
+})->name('order.store');
