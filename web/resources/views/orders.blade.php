@@ -1,4 +1,62 @@
-<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -47,6 +105,7 @@
 <script>
     var socket = new WebSocket("ws://192.168.31.202:8080");
     socket.onopen = function() {
+        socket.send('{"message": "now root, "value": "one"}');
         console.log("Соединение установлено.");
     };
 
