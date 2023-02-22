@@ -26,8 +26,9 @@ Route::get('/orders', function () {
     return view('orders');
 });
 Route::post('/order', function (\Illuminate\Http\Request $request){
+    $data = ['name' => $request->input('name'), 'product' => $request->input('product')];
     $client = new WebSocket\Client("ws:://echo.websocket.org/");
-    $client->text("Hello Websocket");
+    $client->text(json_encode($data));
     echo $client->receive();
     $client->close();
    return response()->redirectTo('/order');
