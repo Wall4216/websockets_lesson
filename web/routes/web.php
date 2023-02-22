@@ -26,5 +26,10 @@ Route::get('/orders', function () {
     return view('orders');
 });
 Route::post('/order', function (\Illuminate\Http\Request $request){
+    $client = new WebSocket\Client("ws:://echo.websocket.org/");
+    $client->text("Hello Websocket");
+    echo $client->receive();
+    $client->close();
    return response()->redirectTo('/order');
+
 })->name('order.store');

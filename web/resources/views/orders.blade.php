@@ -36,7 +36,7 @@
     @endif
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-            <div id="orders">
+            <div  id="orders">
 
             </div>
         </div>
@@ -45,6 +45,34 @@
 
 </body>
 <script>
+    var socket = new WebSocket("ws://192.168.31.202:8080");
+    socket.onopen = function() {
+        console.log("Соединение установлено.");
+    };
 
+    socket.onclose = function(event) {
+        if (event.wasClean) {
+            console.log('Соединение закрыто чисто');
+        } else {
+            console.log('Обрыв соединения'); // например, "убит" процесс сервера
+        }
+        console.log('Код: ' + event.code + ' причина: ' + event.reason);
+    };
+
+    socket.onmessage = function(event) {
+        var json = JSON.parse(event.data)
+        var orders = document.getElementById('message');
+            var order = '' +
+                '<div class="order">'+
+                '<p>'+json.name+'</p>' +
+                '<p>'+json.product+'</p>' +
+                '</div>' +
+                '';
+            orders.insertAdjacentHTML('beforebegin', order);
+    };
+
+    socket.onerror = function(error) {
+        console.log("Ошибка " + error.message);
+    };
 </script>
 </html>

@@ -123,6 +123,9 @@
       <path value="$PROJECT_DIR$/web/vendor/react/promise" />
       <path value="$PROJECT_DIR$/web/vendor/react/event-loop" />
       <path value="$PROJECT_DIR$/web/vendor/react/dns" />
+      <path value="$PROJECT_DIR$/web/vendor/textalk/websocket" />
+      <path value="$PROJECT_DIR$/web/vendor/phrity/util-errorhandler" />
+      <path value="$PROJECT_DIR$/web/vendor/phrity/net-uri" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
