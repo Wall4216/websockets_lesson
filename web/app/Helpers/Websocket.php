@@ -6,6 +6,9 @@ use Ratchet\ConnectionInterface;
 class Websocket implements MessageComponentInterface {
     protected $clients;
 
+    protected $rooms;
+    protected $users;
+
     public function __construct() {
         $this->clients = new \SplObjectStorage;
     }
@@ -18,10 +21,11 @@ class Websocket implements MessageComponentInterface {
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
-        echo $msg;
-        foreach ($this->clients as $client) {
+        $msg = json_decode($msg);
+        if ($msg->message == 'new room')
+        {
+            $this->rooms[$msg->value][$from->resourceTo] = $from;
 
-                $client->send($msg);
         }
     }
 
