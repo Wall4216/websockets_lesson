@@ -25,7 +25,7 @@ class Websocket implements MessageComponentInterface {
         if ($msg->message == 'new room')
         {
             $this->rooms[$msg->value][$from->resourceTo] = $from;
-
+            $this->users[$from->resourceId] = $msg->value;
         }
     }
 
