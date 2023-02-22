@@ -24,8 +24,13 @@ class Websocket implements MessageComponentInterface {
         $msg = json_decode($msg);
         if ($msg->message == 'new room')
         {
-            $this->rooms[$msg->value][$from->resourceTo] = $from;
+            $this->rooms[$msg->value][$from->resourceId] = $from;
             $this->users[$from->resourceId] = $msg->value;
+        }
+        elseif ($msg->message == 'new order')
+        {
+            $room = $this->users[$from->resourceId];
+            dump($room);
         }
     }
 
