@@ -81,11 +81,29 @@
                 users.prepend(liFirst);
             })
         }
+        else if(json.message == 'message')
+        {
+            var messages = document.getElementById('messages')
+            let pFirst = document.createElement('li')
+            pFirst.innerHTML = "<b>"+json.user+"</b>:"+json.value;
+            messages.prepend(pFirst);
+        }
     };
 
     socket.onerror = function(error) {
         console.log("Ошибка " + error.message);
     };
-
+    function send()
+    {
+        var text = document.querySelector('text').value;
+        fetch('https://websocket.dmitry-povyshav.ru/send_message', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json:charset-utf-8'
+            },
+            body: JSON.stringify({text:text})
+        });
+        socket.send('{"message": "new message", "value": "'+text+'"}');
+    }
 </script>
 </html>

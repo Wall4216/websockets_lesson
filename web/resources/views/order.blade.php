@@ -39,7 +39,7 @@
             @csrf
             <input type="text" name="product" class="form-control" value="Шарики">
             <input type="text" name="name" class="form-control" value="Ильназ">
-            <button type="submit" class="form-control primary">Отправить</button>
+            <button type="submit" class="form-control primary">
         </div>
     </div>
 </div>

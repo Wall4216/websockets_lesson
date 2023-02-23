@@ -46,6 +46,15 @@ class Websocket implements MessageComponentInterface {
                 $client->send(\GuzzleHttp\json_encode($msg->value));
             }
         }
+        elseif ($msg->message == 'new message') {
+            $room = $this->users[$from->resourceId];
+            foreach ($this->rooms[$room] as $client)
+            {
+                $message = ['message' => 'message', 'value' => $msg->value, 'user' => $this->users_name[$room][$from->resourceId]];
+
+                $client->send(\GuzzleHttp\json_encode($msg->value));
+            }
+        }
     }
 
     public function onClose(ConnectionInterface $conn) {
@@ -55,6 +64,13 @@ class Websocket implements MessageComponentInterface {
         unset($this->rooms[$room][$conn->resourceId]);
         unset($this->users[$conn->resourceId]);
         unset($this->users_name[$conn->resourceId]);
+        $users = [];
+        foreach ($this->users_name[$room] as $user) $users[] = $user;
+        $message = ['message' => 'connection', 'users' => $users];
+        foreach ($this->rooms[$room] as $client)
+        {
+            $client->send(\GuzzleHttp\json_encode($message));
+        }
         echo "Connection {$conn->resourceId} has disconnected\n";
     }
 
