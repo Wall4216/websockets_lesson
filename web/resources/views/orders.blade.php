@@ -127,7 +127,7 @@
                 '<p>'+json.product+'</p>' +
                 '</div>' +
                 '';
-            orders.insertAdjacentHTML('beforebegin', order);
+            orders.insertAdjacentHTML('beforeend', order);
     };
 
     socket.onerror = function(error) {
