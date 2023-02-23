@@ -72,6 +72,8 @@
         var json = JSON.parse(event.data)
         if (json.message == 'connection')
         {
+            const deleteElement = document.querySelector('#users');
+            deleteElement.innerHTML = '';
             json.users.map(function (item){
                 var users = document.getElementById('users')
                 let liFirst = document.createElement('li')
