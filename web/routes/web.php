@@ -34,10 +34,28 @@ Route::post('/order', function (\Illuminate\Http\Request $request){
         ]
     ];
     $client = new WebSocket\Client("ws:://echo.websocket.org/");
-    $client->text(\GuzzleHttp\json_encode(['message' => 'new room', 'value' => 'one']));
+    $client->text(\GuzzleHttp\json_encode(['message' => 'new room', 'value' => 'two']));
     $client->text(json_encode($data));
     echo $client->receive();
     $client->close();
    return response()->redirectTo('/order');
 
 })->name('order.store');
+
+Route::get('/rooms', function (){
+    return view('rooms');
+});
+Route::get('/rooms', function (\Illuminate\Http\Request $request){
+    if($request->input('id')==1)
+    {
+        $room_name = 'one';
+    }
+    if($request->input('id')==2)
+    {
+        $room_name = 'two';
+    }
+    else{
+        $room_name = 'tree';
+    }
+    return view('room', ['id' => $request->input('id'), 'room_name' => $room_name, 'name' => $request->input('name')]);
+});

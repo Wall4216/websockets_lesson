@@ -8,7 +8,7 @@ class Websocket implements MessageComponentInterface {
 
     protected $rooms;
     protected $users;
-
+    protected $users_name;
     public function __construct() {
         $this->clients = new \SplObjectStorage;
     }
@@ -26,11 +26,17 @@ class Websocket implements MessageComponentInterface {
         {
             $this->rooms[$msg->value][$from->resourceId] = $from;
             $this->users[$from->resourceId] = $msg->value;
+            $this->users_name[$msg->value][$from->resourceId] = $msg->user;
+            dump($this->users_name);
+
         }
         elseif ($msg->message == 'new order')
         {
             $room = $this->users[$from->resourceId];
-            dump($room);
+            foreach ($this->rooms[$room] as $client)
+            {
+                $client->send(\GuzzleHttp\json_decode($msg->value));
+            }
         }
     }
 
