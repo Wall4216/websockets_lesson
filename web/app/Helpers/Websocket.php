@@ -27,6 +27,14 @@ class Websocket implements MessageComponentInterface {
             $this->rooms[$msg->value][$from->resourceId] = $from;
             $this->users[$from->resourceId] = $msg->value;
             $this->users_name[$msg->value][$from->resourceId] = $msg->user;
+            $users = [];
+            foreach ($this->users_name[$msg->value] as $user) $users[] = $user;
+            $message = ['message' => 'connection', 'users' => $users];
+            foreach ($this->rooms[$msg->value] as $client)
+            {
+                $client->send(\GuzzleHttp\json_encode($message));
+            }
+
             dump($this->users_name);
 
         }
@@ -35,7 +43,7 @@ class Websocket implements MessageComponentInterface {
             $room = $this->users[$from->resourceId];
             foreach ($this->rooms[$room] as $client)
             {
-                $client->send(\GuzzleHttp\json_decode($msg->value));
+                $client->send(\GuzzleHttp\json_encode($msg->value));
             }
         }
     }

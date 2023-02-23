@@ -26,8 +26,11 @@
             <h1>Комната 1</h1>
         @elseif($id==2)
             <h1>Комната 2</h1>
+
         @else
             <h1>Комната 3</h1>
+        @endif
+
     </div>
     <div class="row">
         <div class="col-3">
@@ -67,14 +70,15 @@
 
     socket.onmessage = function(event) {
         var json = JSON.parse(event.data)
-        var orders = document.getElementById('message');
-        var order = '' +
-            '<div class="order">'+
-            '<p>'+json.name+'</p>' +
-            '<p>'+json.product+'</p>' +
-            '</div>' +
-            '';
-        orders.insertAdjacentHTML('beforeend', order);
+        if (json.message == 'connection')
+        {
+            json.users.map(function (item){
+                var users = document.getElementById('users')
+                let liFirst = document.createElement('li')
+                liFirst.innerHTML = "<li><span>"+item+"</span></li>"
+                users.prepend(liFirst);
+            })
+        }
     };
 
     socket.onerror = function(error) {
